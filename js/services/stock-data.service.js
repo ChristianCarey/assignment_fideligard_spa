@@ -21,7 +21,6 @@ fideligard.factory('stockDataService', [
     var setData = function setData(quote){
       for(var i = 0; i < quote.length; i++){
         if(!_raw[quote[i][0]]) _raw[quote[i][0]] = {};
-
         _raw[quote[i][0]][quote[i][1]] = {
           open: quote[i][2],
           high: quote[i][3],
@@ -38,7 +37,8 @@ fideligard.factory('stockDataService', [
           // for(var i = 0; i < datas.length; i++){
           //   setData(datas[i].data.query.results.quote)
           // }
-          setData(resp.data.datatable.data);
+          
+          setData(resp.data);
           return _raw
         })
       }
@@ -46,19 +46,27 @@ fideligard.factory('stockDataService', [
     }
 
     var updateData = function updateData(date){
-      var today = _minusDays(date, 0);
-      var oneDayAgo = _minusDays(date, 1);
-      var sevenDaysAgo = _minusDays(date, 7);
-      var thirtyDaysAgo = _minusDays(date, 30);
+      // var today = _minusDays(date, 0);
+      // var oneDayAgo = _minusDays(date, 1);
+      // var sevenDaysAgo = _minusDays(date, 7);
+      // var thirtyDaysAgo = _minusDays(date, 30);
       angular.copy({}, _data);
       for(symbol in _raw){
-        if(_raw[symbol][today]){
+        var today = _minusDays(date, symbol, 0);
+        var oneDayAgo = _minusDays(date, symbol, 1);
+        var sevenDaysAgo = _minusDays(date, symbol, 7);
+        var thirtyDaysAgo = _minusDays(date, symbol, 30);
+        console.log(today)
+        if(today){
           if(!_data[symbol]) _data[symbol] = { symbol: symbol };
-          var high = _raw[symbol][today].high;
-          _data[symbol].price = high;
-          _data[symbol].one = _raw[symbol][oneDayAgo] ? high - _raw[symbol][oneDayAgo].high : "N/A";
-          _data[symbol].seven = _raw[symbol][sevenDaysAgo] ? high - _raw[symbol][sevenDaysAgo].high : "N/A";
-          _data[symbol].thirty = _raw[symbol][thirtyDaysAgo] ? high - _raw[symbol][thirtyDaysAgo].high : "N/A";
+          // _data[symbol].price = high;
+          // _data[symbol].one = _raw[symbol][oneDayAgo] ? high - _raw[symbol][oneDayAgo].high : 'N/A';
+          // _data[symbol].seven = _raw[symbol][sevenDaysAgo] ? high - _raw[symbol][sevenDaysAgo].high : "N/A";
+          // _data[symbol].thirty = _raw[symbol][thirtyDaysAgo] ? high - _raw[symbol][thirtyDaysAgo].high : "N/A";
+          _data[symbol].price = today.high;
+          _data[symbol].one = oneDayAgo ? oneDayAgo.high : "N/A";
+          _data[symbol].seven = sevenDaysAgo ? sevenDaysAgo.high : "N/A";
+          _data[symbol].thirty = thirtyDaysAgo ? thirtyDaysAgo.high : "N/A";
         }
       }
       return _data;
@@ -70,10 +78,19 @@ fideligard.factory('stockDataService', [
       })
     }
 
-    var _minusDays = function _minusDays(date, numDays) {
+    var _minusDays = function _minusDays(date, symbol, numDays) {
       var dateCopy = new Date(date);
       var newDate = new Date(dateCopy.setDate(dateCopy.getDate() - numDays));
-      return newDate.toISOString().slice(0,10);
+      var count = 2;
+      newDate = newDate.toISOString().slice(0,10)
+      while (!_raw[symbol][newDate] && count > 0) {
+        newDate = new Date(dateCopy.setDate(dateCopy.getDate() - 1));
+        newDate = newDate.toISOString().slice(0,10)
+        count--;
+      }
+      // return newDate.toISOString().slice(0,10);
+      // console.log(_raw[symbol][newDate], newDate)
+      return _raw[symbol][newDate];
     }
 
     return {
