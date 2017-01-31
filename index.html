@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Fideligard</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script sry="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
 
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="css/main.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js" charset="utf-8"></script>
@@ -26,32 +27,33 @@
     <![endif]-->
   </head>
   <body novalidate>
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" ui-sref="parent">Parent</a>
-        </div>
+       <nav class="navbar navbar-default navbar-fixed-top" id="main-nav">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#" id="brand">Fideligard</a>
+          </div>
+          <ul class="nav navbar-nav navbar-right" id="nav-links">
+            <li><a ui-sref="portfolio">Portfolio</a></li>
+            <li><a ui-sref="transactions">Transactions</a></li>
+            <li><a ui-sref="trade">Trade</a></li>
+          </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
 
-        <ul class="nav navbar-nav navbar-right">
-          <li><a ui-sref="portfolio">Portfolio</a></li>
-          <li><a ui-sref="transactions">Transactions</a></li>
-          <li><a ui-sref="trade">Trade</a></li>
-        </ul>
-      </div><!-- /.container-fluid -->
-    </nav>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-xs-5">
+        <div class="col-md-5">
+          <section class="bordered" ui-view="dateWidget"></section>
           <section class="bordered" ui-view="stockData"></section>
         </div>
-        <div class="col-xs-7">
+        <div class="col-md-7">
           <div class="row">
-            <div class="col-xs-12">
-              <section class="bordered" ui-view="dateWidget"></section>
+            <div class="col-md-12">
             </div>
           </div>
           <div class="row">
-            <div class="col-xs-12">
+            <div class="col-md-12">
               <section class="bordered" ui-view="userData"></section>
             </div>
           </div>
@@ -65,15 +67,19 @@
     <!-- Services -->
     <script src="js/services/date-widget.service.js" charset="utf-8"></script>
     <script src="js/services/stock-data.service.js" charset="utf-8"></script>
+    <script src="js/services/user.service.js" charset="utf-8"></script>
+    <script src="js/services/transaction.service.js" charset="utf-8"></script>
 
     <!-- Directives -->
     <script src="js/directives/stock-data.directive.js" charset="utf-8"></script>
+    <script src="js/directives/errors.directive.js" charset="utf-8"></script>
 
     <!-- Controllers -->
     <script src="js/controllers/date-widget.controller.js" charset="utf-8"></script>
     <script src="js/controllers/stock-data.controller.js" charset="utf-8"></script>
     <script src="js/controllers/trade.controller.js" charset="utf-8"></script>
-
-
+    <script src="js/controllers/transactions.controller.js" charset="utf-8"></script>
+    <script src="js/controllers/portfolio.controller.js" charset="utf-8"></script>
+    <script src="js/controllers/user-data.controller.js" charset="utf-8"></script>
   </body>
 </html>

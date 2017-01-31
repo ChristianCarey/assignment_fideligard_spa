@@ -1,0 +1,55 @@
+<table class="table">
+  <thead>
+    <caption>Totals</caption>
+    <tr>
+      <th>Cost Basis</th>
+      <th>Current Value</th>
+      <th>Profit/Loss</th>
+      <th>3d</th>
+      <th>7d</th>
+      <th>30d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ portfolio.total.costBasis | currency }}</td>
+      <td>{{ portfolio.total.currentValue | currency }}</td>
+      <td>{{ portfolio.total.profit | currency }}</td>
+      <td>{{ portfolio.total.one > 0 ? "+" : ""}}{{ portfolio.total.one | currency }}</td>
+      <td>{{ portfolio.total.seven > 0 ? "+" : ""}}{{ portfolio.total.seven | currency }}</td>
+      <td>{{ portfolio.total.thirty > 0 ? "+" : ""}}{{ portfolio.total.thirty | currency }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table">
+  <thead>
+    <caption>By Symbol</caption>
+    <tr>
+      <th>Symbol</th>
+      <th>Quantity</th>
+      <th>Cost Basis</th>
+      <th>Current Value</th>
+      <th>Profit/Loss</th>
+      <th>Current Price</th>
+      <th>3d</th>
+      <th>7d</th>
+      <th>30d</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="(symbol, data) in portfolio.symbols">
+      <td>{{ symbol }}</td>
+      <td>{{ data.quantity }}</td>
+      <td>{{ data.costBasis | currency }}</td>
+      <td>{{ data.currentValue | currency }}</td>
+      <td>{{ data.profit | currency }}</td>
+      <td>{{ data.currentPrice | currency }}</td>
+      <td>{{ data.one > 0 ? "+" : ""}}{{ data.one | currency }}</td>
+      <td>{{ data.seven > 0 ? "+" : ""}}{{ data.seven | currency }}</td>
+      <td>{{ data.thirty > 0 ? "+" : ""}}{{ data.thirty | currency }}</td>
+      <td><a ui-sref="trade({ symbol: symbol })">Trade</a></td>
+    </tr>
+  </tbody>
+</table>

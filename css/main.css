@@ -1,0 +1,32 @@
+.nav, .pagination, .carousel, .panel-title a {
+  cursor: pointer; }
+
+body {
+  padding: 82px 0;
+  background: #4d9ddf;
+  /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover, #4d9ddf 1%, #2989d8 74%);
+  /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover, #4d9ddf 1%, #2989d8 74%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center, #4d9ddf 1%, #2989d8 74%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4d9ddf', endColorstr='#2989d8',GradientType=1 );
+                                                                                                                     /* 
+IE6-9 fallback on horizontal gradient */
+  background-repeat: no-repeat;
+  background-size: 100%; }
+
+#user-data {
+  min-height: 417px; }
+
+.table {
+  font-size: .85em; }
+
+.errors, .invalid {
+  color: red; }
+
+.valid {
+  color: green; }
+
+/*# sourceMappingURL=main.css.map */

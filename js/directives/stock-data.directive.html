@@ -1,6 +1,6 @@
 <td>{{ stockData.symbol }}</td>
 <td>{{ stockData.price | currency }}</td>
-<td>{{ stockData.one | currency }}</td>
-<td>{{ stockData.seven | currency }}</td>
-<td>{{ stockData.thirty | currency }}</td>
+<td>{{ stockData.one > 0 ? "+" : ""}}{{ stockData.one | currency }}</td>
+<td>{{ stockData.seven > 0 ? "+" : ""}}{{ stockData.seven | currency }}</td>
+<td>{{ stockData.thirty > 0 ? "+" : ""}}{{ stockData.thirty | currency }}</td>
 <td><a ui-sref="trade({symbol: stockData.symbol})">Trade</a></td>

@@ -1,41 +1,41 @@
-<form name="tradeForm" ng-submit="validateTrade(tradeForm.$valid, stock, tradeForm)">
+<form name="tradeForm" ng-submit="submitTrade()" novalidate>
   <div class="row">
     <div class="col-xs-8">
       <div class="form-group">
         <label>
           Stock:
         </label>
-        <select  name="symbol" class="form-control" ng-model="stock.symbol" ng-change="findStock(stock.symbol)" required>
+        <select  name="symbol" class="form-control" ng-model="trade.symbol" ng-change="findStock(trade.symbol)" required>
           <option ng-repeat="selectStock in stocks" value="{{ selectStock.symbol }}">{{ selectStock.symbol }}</option>
         </select>
+        <p ng-if="trade.symbol" class="num-stocks-owned">You own {{ numStocksOwned }} {{ trade.symbol }} stock{{ numStocksOwned !== 1 ? "s" : "" }}.</p>
       </div>
       <div class="form-group">
         <label>
           Quantity:
-          <input class="form-control" type="number" name="quantity" ng-model="stock.quantity" ng-change="updateCost()" required ng-min="1" min="1">
+          <input class="form-control" type="number" name="quantity" ng-model="trade.quantity" ng-change="updateCost()" required ng-min="1" min="1">
         </label>
       </div>
       <div class="form-group">
         <label class="radio-inline">
-          <input type="radio" value="true" name="buy" ng-model="stock.buy" required> Buy
+          <input type="radio" value="true" name="buy" ng-model="trade.buy" ng-checked="true" required> Buy
         </label>
         <label class="radio-inline">
-          <input type="radio" value="false" name="buy" ng-model="stock.buy" required> Sell
+          <input type="radio" value="false" name="buy" ng-model="trade.buy" required> Sell
         </label>
-      </div>
-      <div ng-hide="true">
-        <input type="number" name="cost" ng-model="stock.cost" ng-max="{{ user.balance }}">
       </div>
       <div>
         <p>price: {{ selectedStock.price | currency }}</p>
-        <p>cost: {{ stock.cost | currency }}</p>
+        <p>cost: {{ trade.cost | currency }}</p>
 
         <button class="btn btn-primary btn-block" type="submit" name="button">Submit Trade</button>
       </div>
     </div>
     <div class="col-xs-4">
-      <h3>Available Cash: {{ user.balance | currency }}</h3>
-      <h4>Order Status: {{ tradeForm.$valid ? "Valid" : "Invalid" }}</h4>
+      <h5>Total Cash: {{ user.totalBalance | currency }}</h5>
+      <h5>Available Cash: {{ user.balance | currency }}</h5>
+      <h5>Order Status: <span class="{{ validTrade ? 'valid' : 'invalid'}}">{{ validTrade ? "Valid" : "Invalid" }}</h5>
+      <errors errors="errors"></errors> 
     </div>
   </div>
 </form>
